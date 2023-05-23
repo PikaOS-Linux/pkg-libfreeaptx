@@ -11,6 +11,8 @@ cd ./libfreeaptx
 
 for i in ../patches/*.patch; do patch -Np1 -i $i ;done
 
+apt-get install -y pbuilder debootstrap devscripts debhelper sbuild debhelper ubuntu-dev-tools piuparts dh-make
+
 LOGNAME=root dh_make --createorig -y -l -p libfreeaptx_0.1.1
 
 # Get build deps
@@ -19,8 +21,6 @@ DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata
 apt-get build-dep -y ./
 debuild -S -uc -us
 cd ../
-
-apt-get install -y pbuilder debootstrap devscripts debhelper sbuild debhelper ubuntu-dev-tools piuparts
 
 apt install -y debian-archive-keyring
 cp -rvf ./pbuilderrc /etc/pbuilderrc
